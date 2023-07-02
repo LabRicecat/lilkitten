@@ -3,6 +3,9 @@
 
 #include "catpkgs/kittenlexer/kittenlexer.hpp"
 #include <functional>
+#include <vector>
+#include <map>
+#include <string>
 
 namespace lil {
 
