@@ -11,6 +11,7 @@ struct StorageContainer;
 struct Event {
     using fn = std::function<std::string(std::vector<KittenToken>,StorageContainer&)>;
     fn event;
+    /* later data may follow */
 };
 
 struct StorageContainer {
@@ -40,32 +41,33 @@ struct Environment {
 
     StorageContainer storage;
     KittenLexer lexer;
-    token_eval teval = [](const KittenToken& t,StorageContainer&){ return t; };
-    name_resolve nresolve = [](const KittenToken& t,StorageContainer& s){ return s.events[t.src]; };
-    message_handler mhandler = [](const std::string& m,StorageContainer&){ return m != "" ? Message::EventError : Message::Ok; };
-    token_preproccess tpp = [](const KittenToken& m,StorageContainer&){ return m; };
+    /* default procedures */
+    token_eval teval            = [](const KittenToken& t,StorageContainer&  ){ return t; };
+    name_resolve nresolve       = [](const KittenToken& t,StorageContainer& s){ return s.events[t.src]; };
+    message_handler mhandler    = [](const std::string& m,StorageContainer&  ){ return m != "" ? Message::EventError : Message::Ok; };
+    token_preproccess tpp       = [](const KittenToken& t,StorageContainer&  ){ return t; };
 
-    Environment& set_lexer(KittenLexer lexer) {
+    Environment& set_lexer(const KittenLexer& lexer) {
         this->lexer = lexer;
         return *this;
     }
-    Environment& set_storage(StorageContainer storage) {
+    Environment& set_storage(const StorageContainer& storage) {
         this->storage = storage;
         return *this;
     }
-    Environment& set_token_eval(token_eval eval) {
+    Environment& set_token_eval(const token_eval& eval) {
         teval = eval;
         return *this;
     }
-    Environment& set_name_resolve(name_resolve resolve) {
+    Environment& set_name_resolve(const name_resolve& resolve) {
         nresolve = resolve;
         return *this;
     }
-    Environment& set_message_handler(message_handler handler) {
+    Environment& set_message_handler(const message_handler& handler) {
         mhandler = handler;
         return *this;
     }
-    Environment& set_token_preproccess(token_preproccess pp) {
+    Environment& set_token_preproccess(const token_preproccess& pp) {
         tpp = pp;
         return *this;
     }
