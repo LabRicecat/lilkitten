@@ -1,3 +1,4 @@
+# lilkitten 0.0.1
 A smal DSL library, built for simplicity
 
 ## Installation 
