@@ -1,0 +1,9 @@
+[Main]
+
+[Info]
+name = "lilkitten"
+version = "0.0.0"
+
+[Download]
+dependencies = ["https://raw.githubusercontent.com/catcaretaker/kittenlexer/main/"]
+
